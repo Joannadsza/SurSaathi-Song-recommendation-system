@@ -30,7 +30,7 @@ BY_ID = {s["id"]: s for s in SONGS}
 
 ALL_MOODS = [
     "Happy 😊", "Sad 😢", "Romantic ❤️", "Party 🎉", "Dance 💃",
-    "Devotional 🙏", "Motivational 💪", "Calm 🌿", "Emotional 💙", "Patriotic 🇮🇳",
+     "Motivational 💪", "Calm 🌿", "Emotional 💙", "Patriotic 🇮🇳",
 ]
 
 
@@ -73,7 +73,7 @@ def featured():
     limit = int(request.args.get("limit", 4))
     pool = SONGS
     if mood:
-        pool = [s for s in pool if mood in s["moods"]]
+        pool = [s for s in pool if s["moods"] and s["moods"][0] == mood]
     sample = random.sample(pool, min(limit, len(pool))) if pool else []
     return jsonify([to_card(s) for s in sample])
 
