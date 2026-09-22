@@ -2,7 +2,7 @@
 
 A Hindi song recommendation system that suggests tracks by **lyric similarity**
 (TF‑IDF over cleaned lyrics) and by **mood** (Happy, Sad, Romantic, Party,
-Dance, Devotional, Motivational, Calm, Emotional, Patriotic), plus a karaoke
+Dance,  Motivational, Calm, Emotional, Patriotic), plus a karaoke
 view for reading along to a song's lyrics.
 
 ## Project structure
