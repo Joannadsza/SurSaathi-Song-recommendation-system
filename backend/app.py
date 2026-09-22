@@ -90,6 +90,7 @@ def search():
         or q in s["singer"].lower()
         or q in s["theme"].lower()
         or q in s["nameDev"]
+        or q in s["lyrics"].lower()
     ][:limit]
     return jsonify([to_card(s) for s in results])
 
