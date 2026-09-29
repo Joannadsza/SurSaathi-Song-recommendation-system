@@ -1,218 +1,735 @@
 """
 SurSaathi — Mood Classification Model Training
 ------------------------------------------------
-This is the piece your project was missing: an actual *training* script.
-
-Right now app.py just reads a precomputed sursaathi_data.json — moods and
-similarity scores were already baked in, so there's nothing to "train" live.
-This script is what should sit in front of that: it takes the raw/cleaned
-CSV, trains a real model that LEARNS to predict a song's mood from its
-lyrics, and reports how well it did. That's what you show your professor.
+Pipeline:
+    Song Lyrics
+        ↓
+    Text Preprocessing
+        ↓
+    Word TF-IDF + Character TF-IDF
+        ↓
+    Metadata Features (optional)
+        ↓
+    Linear SVM / Logistic Regression
+        ↓
+    Mood Prediction
+        ↓
+    Accuracy, Precision, Recall, F1, Confusion Matrix
+        ↓
+    Save trained model
 
 Run:
-    pip install pandas scikit-learn matplotlib seaborn joblib
+    pip install pandas scikit-learn matplotlib seaborn joblib scipy
     python train_mood_model.py
 
-Outputs (written next to this script):
-    confusion_matrix.png   — visual proof of how well the model classifies
-    mood_model.pkl         — the trained classifier
-    tfidf_vectorizer.pkl   — the fitted TF-IDF vectorizer (needed to reuse the model)
+Required input:
+    song_cleaned.csv
 
-USE_METADATA_FEATURES (below): if True, also feeds the model the song's
-energy/theme/occasion tags, not just lyrics. This raises accuracy
-(~64% -> ~68%) but with a real caveat — read the note next to the flag
-before you decide whether to use it.
+Expected columns:
+    lyrics
+    label
+    energy
+    theme
+    occasion
+
+Output files:
+    mood_model.pkl
+    tfidf_vectorizer.pkl
+    metadata_encoder.pkl
+    confusion_matrix.png
+    model_metrics.json
 """
 
 import re
+import json
+from pathlib import Path
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
+
 from scipy.sparse import hstack
 
-from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold
+from sklearn.model_selection import (
+    train_test_split,
+    GridSearchCV,
+    StratifiedKFold
+)
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import FeatureUnion
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.svm import LinearSVC
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-CSV_PATH = "song_cleaned.csv"
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import LinearSVC
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    classification_report,
+    confusion_matrix
+)
+
+
+# ============================================================
+# PATHS
+# ============================================================
+
+BASE_DIR = Path(__file__).resolve().parent
+
+CSV_PATH = BASE_DIR / "song_cleaned.csv"
+
+MODEL_PATH = BASE_DIR / "mood_model.pkl"
+VECTORIZER_PATH = BASE_DIR / "tfidf_vectorizer.pkl"
+METADATA_ENCODER_PATH = BASE_DIR / "metadata_encoder.pkl"
+
+CONFUSION_MATRIX_PATH = BASE_DIR / "confusion_matrix.png"
+METRICS_PATH = BASE_DIR / "model_metrics.json"
+
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
 RANDOM_STATE = 42
 
-# ----------------------------------------------------------------------
-# TOGGLE: include energy/theme/occasion as extra features, alongside lyrics.
-#
-# The honest tradeoff: these columns were hand-tagged in the same pass as
-# the mood label, so they correlate with mood directly — testing them
-# ALONE (no lyrics at all) still predicts mood at ~57% accuracy. That means
-# a good chunk of the accuracy gain from turning this on is the model
-# reading "theme: Motivation" and guessing "Motivational", not the model
-# understanding the lyrics. It's still a legitimate multi-feature model
-# (energy/theme/occasion are real data, not the answer key), but it's a
-# different, weaker claim than "predicts mood from lyrics alone" — be
-# ready to explain that distinction if asked.
-# ----------------------------------------------------------------------
 USE_METADATA_FEATURES = True
-METADATA_COLUMNS = ["energy", "theme", "occasion"]
 
-# Roman-Hindi + English filler words that show up in almost every song and
-# don't carry mood signal on their own (kept separate from sklearn's
-# built-in English stopword list, which won't catch "hai", "tum", etc.)
+METADATA_COLUMNS = [
+    "energy",
+    "theme",
+    "occasion"
+]
+
+
+# ============================================================
+# ROMAN HINDI + ENGLISH STOPWORDS
+# ============================================================
+
 HINDI_ROMAN_STOPWORDS = {
-    "hai", "hain", "ho", "hoon", "hun", "the", "thi", "tha", "ka", "ki", "ke",
-    "ko", "se", "me", "mein", "main", "hum", "humne", "tum", "tumhe", "tumko",
-    "aur", "na", "nahi", "toh", "to", "bhi", "ye", "yeh", "wo", "woh", "jo",
-    "jaise", "kya", "kyun", "kyu", "koi", "kuch", "sa", "si", "hi", "bas",
-    "par", "pe", "kar", "gaye", "gayi", "gaya", "diya", "diye", "liya",
+    "hai", "hain", "ho", "hoon", "hun",
+    "the", "thi", "tha",
+
+    "ka", "ki", "ke", "ko",
+    "se", "me", "mein", "main",
+
+    "hum", "humne",
+    "tum", "tumhe", "tumko",
+
+    "aur",
+    "na", "nahi",
+    "toh", "to",
+    "bhi",
+
+    "ye", "yeh",
+    "wo", "woh",
+
+    "jo",
+    "jaise",
+
+    "kya",
+    "kyun",
+    "kyu",
+
+    "koi",
+    "kuch",
+
+    "sa", "si",
+    "hi",
+    "bas",
+
+    "par",
+    "pe",
+
+    "kar",
+    "gaye",
+    "gayi",
+    "gaya",
+
+    "diya",
+    "diye",
+
+    "liya"
 }
 
 
+# ============================================================
+# TEXT PREPROCESSING
+# ============================================================
+
 def clean_lyrics(text: str) -> str:
-    """Lowercase, strip punctuation/numbers, drop filler words."""
+    """
+    Preprocess song lyrics.
+
+    Steps:
+        1. Convert to lowercase
+        2. Remove numbers and punctuation
+        3. Tokenize using whitespace
+        4. Remove Roman-Hindi stopwords
+        5. Remove very short tokens
+
+    Stemming and lemmatization are intentionally not used because
+    the lyrics contain Romanized Hindi + English. Generic English
+    stemming/lemmatization can incorrectly alter Roman-Hindi words.
+    Character TF-IDF is used to handle spelling variations instead.
+    """
+
     text = str(text).lower()
+
+    # Keep only alphabetic characters and spaces
     text = re.sub(r"[^a-z\s]", " ", text)
-    words = [w for w in text.split() if w not in HINDI_ROMAN_STOPWORDS and len(w) > 1]
+
+    words = []
+
+    for word in text.split():
+
+        # Remove stopwords
+        if word in HINDI_ROMAN_STOPWORDS:
+            continue
+
+        # Remove single-character words
+        if len(word) <= 1:
+            continue
+
+        words.append(word)
+
     return " ".join(words)
 
 
-def main():
-    # ------------------------------------------------------------------
-    # 1. LOAD DATA
-    # ------------------------------------------------------------------
-    df = pd.read_csv(CSV_PATH)
-    df = df.dropna(subset=["lyrics", "label"]).reset_index(drop=True)
-    print(f"Loaded {len(df)} songs, {df['label'].nunique()} mood classes")
-    print(df["label"].value_counts(), "\n")
-    print(f"Using metadata features (energy/theme/occasion): {USE_METADATA_FEATURES}\n")
+# ============================================================
+# MAIN TRAINING FUNCTION
+# ============================================================
 
-    # ------------------------------------------------------------------
-    # 2. PREPROCESS TEXT
-    # ------------------------------------------------------------------
+def main():
+
+    print("=" * 70)
+    print("SURSAATHI MOOD CLASSIFICATION MODEL TRAINING")
+    print("=" * 70)
+
+    # --------------------------------------------------------
+    # 1. LOAD DATASET
+    # --------------------------------------------------------
+
+    if not CSV_PATH.exists():
+        print("\nERROR: song_cleaned.csv was not found.")
+        print(f"Expected location: {CSV_PATH}")
+        return
+
+    df = pd.read_csv(CSV_PATH)
+
+    required_columns = [
+        "lyrics",
+        "label"
+    ]
+
+    for column in required_columns:
+
+        if column not in df.columns:
+            print(f"\nERROR: Missing required column: {column}")
+            return
+
+    print(f"\nDataset loaded successfully.")
+    print(f"Total songs: {len(df)}")
+    print(f"Number of mood classes: {df['label'].nunique()}")
+
+    print("\nMood distribution:")
+    print(df["label"].value_counts())
+
+    # --------------------------------------------------------
+    # 2. CLEAN DATA
+    # --------------------------------------------------------
+
+    df = df.dropna(
+        subset=["lyrics", "label"]
+    ).reset_index(drop=True)
+
+    # Make sure metadata columns exist
+    if USE_METADATA_FEATURES:
+
+        for column in METADATA_COLUMNS:
+
+            if column not in df.columns:
+                print(
+                    f"\nWARNING: Metadata column '{column}' "
+                    "not found. Metadata features disabled."
+                )
+
+                USE_METADATA = False
+                break
+
+        else:
+            USE_METADATA = True
+
+    else:
+        USE_METADATA = False
+
+    print(
+        f"\nMetadata features enabled: "
+        f"{USE_METADATA}"
+    )
+
+    # --------------------------------------------------------
+    # 3. PREPROCESS LYRICS
+    # --------------------------------------------------------
+
+    print("\nPreprocessing lyrics...")
+
     df["clean_lyrics"] = df["lyrics"].apply(clean_lyrics)
 
-    # ------------------------------------------------------------------
-    # 3. TRAIN / TEST SPLIT
-    #    stratify=labels keeps the same mood proportions in both splits —
-    #    important here since "Emotional" dominates the dataset (~47%)
-    # ------------------------------------------------------------------
-    if USE_METADATA_FEATURES:
-        text_train, text_test, meta_train, meta_test, y_train, y_test = train_test_split(
-            df["clean_lyrics"], df[METADATA_COLUMNS], df["label"],
-            test_size=0.2, random_state=RANDOM_STATE, stratify=df["label"],
+    # Remove empty lyrics after preprocessing
+    df = df[
+        df["clean_lyrics"].str.strip().astype(bool)
+    ].reset_index(drop=True)
+
+    print(
+        f"Songs remaining after preprocessing: "
+        f"{len(df)}"
+    )
+
+    # --------------------------------------------------------
+    # 4. TRAIN / TEST SPLIT
+    # --------------------------------------------------------
+
+    print("\nSplitting dataset into training and testing sets...")
+
+    if USE_METADATA:
+
+        text_train, text_test, meta_train, meta_test, y_train, y_test = (
+            train_test_split(
+                df["clean_lyrics"],
+                df[METADATA_COLUMNS],
+                df["label"],
+                test_size=0.20,
+                random_state=RANDOM_STATE,
+                stratify=df["label"]
+            )
         )
+
     else:
-        text_train, text_test, y_train, y_test = train_test_split(
-            df["clean_lyrics"], df["label"],
-            test_size=0.2, random_state=RANDOM_STATE, stratify=df["label"],
+
+        text_train, text_test, y_train, y_test = (
+            train_test_split(
+                df["clean_lyrics"],
+                df["label"],
+                test_size=0.20,
+                random_state=RANDOM_STATE,
+                stratify=df["label"]
+            )
         )
-    print(f"Train: {len(text_train)} songs | Test: {len(text_test)} songs\n")
 
-    # ------------------------------------------------------------------
-    # 4. VECTORIZE (fit ONLY on training data — this is the "learning" step
-    #    for the vectorizer itself: it builds its vocabulary from train,
-    #    then just applies that vocabulary to the unseen test set)
-    #
-    #    Word n-grams alone miss a lot here because Romanized Hindi has huge
-    #    spelling variation ("tum" / "tumm" / "tumhe"). Character n-grams
-    #    (analyzer="char_wb") catch those variants by matching sub-word
-    #    chunks, so we combine word + char features with FeatureUnion.
-    # ------------------------------------------------------------------
-    word_vec = TfidfVectorizer(ngram_range=(1, 2), max_features=8000, min_df=2, sublinear_tf=True)
-    char_vec = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), max_features=8000, min_df=2, sublinear_tf=True)
-    vectorizer = FeatureUnion([("word", word_vec), ("char", char_vec)])
+    print(f"Training samples: {len(text_train)}")
+    print(f"Testing samples:  {len(text_test)}")
 
+    # --------------------------------------------------------
+    # 5. TF-IDF FEATURE EXTRACTION
+    # --------------------------------------------------------
+
+    print("\nCreating TF-IDF features...")
+
+    # Word-level TF-IDF
+    word_vec = TfidfVectorizer(
+        ngram_range=(1, 2),
+        max_features=8000,
+        min_df=2,
+        sublinear_tf=True
+    )
+
+    # Character-level TF-IDF
+    # Helps with Roman-Hindi spelling variations
+    char_vec = TfidfVectorizer(
+        analyzer="char_wb",
+        ngram_range=(3, 5),
+        max_features=8000,
+        min_df=2,
+        sublinear_tf=True
+    )
+
+    # Combine word and character features
+    vectorizer = FeatureUnion([
+        ("word", word_vec),
+        ("char", char_vec)
+    ])
+
+    # Fit ONLY on training data
     X_train_vec = vectorizer.fit_transform(text_train)
+
+    # Apply learned vocabulary to test data
     X_test_vec = vectorizer.transform(text_test)
-    print(f"Combined word+char feature count: {X_train_vec.shape[1]}")
+
+    print(
+        f"TF-IDF feature count: "
+        f"{X_train_vec.shape[1]}"
+    )
+
+    # --------------------------------------------------------
+    # 6. METADATA FEATURES
+    # --------------------------------------------------------
 
     meta_encoder = None
-    if USE_METADATA_FEATURES:
-        meta_encoder = OneHotEncoder(handle_unknown="ignore")
-        meta_train_vec = meta_encoder.fit_transform(meta_train)
-        meta_test_vec = meta_encoder.transform(meta_test)
-        X_train_vec = hstack([X_train_vec, meta_train_vec])
-        X_test_vec = hstack([X_test_vec, meta_test_vec])
-        print(f"+ {meta_train_vec.shape[1]} one-hot metadata features "
-              f"({', '.join(METADATA_COLUMNS)}) = {X_train_vec.shape[1]} total")
-    print()
 
-    # ------------------------------------------------------------------
-    # 5. TRAIN & COMPARE THREE MODELS (with a small hyperparameter search
-    #    for the two linear models — picks the best regularization strength
-    #    C via 5-fold cross-validation on the training set only)
-    # ------------------------------------------------------------------
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
-    param_grid = {"C": [0.1, 1, 10]}
+    if USE_METADATA:
+
+        print("\nEncoding metadata features...")
+
+        meta_encoder = OneHotEncoder(
+            handle_unknown="ignore"
+        )
+
+        meta_train_vec = meta_encoder.fit_transform(
+            meta_train
+        )
+
+        meta_test_vec = meta_encoder.transform(
+            meta_test
+        )
+
+        X_train_vec = hstack([
+            X_train_vec,
+            meta_train_vec
+        ])
+
+        X_test_vec = hstack([
+            X_test_vec,
+            meta_test_vec
+        ])
+
+        print(
+            f"Metadata features: "
+            f"{meta_train_vec.shape[1]}"
+        )
+
+        print(
+            f"Total combined features: "
+            f"{X_train_vec.shape[1]}"
+        )
+
+    # --------------------------------------------------------
+    # 7. TRAIN ML MODELS
+    # --------------------------------------------------------
+
+    print("\n" + "=" * 70)
+    print("TRAINING MACHINE LEARNING MODELS")
+    print("=" * 70)
+
+    cv = StratifiedKFold(
+        n_splits=5,
+        shuffle=True,
+        random_state=RANDOM_STATE
+    )
+
+    param_grid = {
+        "C": [0.1, 1, 10]
+    }
 
     candidates = {
-        "Logistic Regression": GridSearchCV(
-            LogisticRegression(max_iter=2000, class_weight="balanced", random_state=RANDOM_STATE),
-            param_grid, cv=cv, scoring="accuracy",
-        ),
+
         "Linear SVM": GridSearchCV(
-            LinearSVC(class_weight="balanced", random_state=RANDOM_STATE, max_iter=5000),
-            param_grid, cv=cv, scoring="accuracy",
+            LinearSVC(
+                class_weight="balanced",
+                random_state=RANDOM_STATE,
+                max_iter=5000
+            ),
+            param_grid,
+            cv=cv,
+            scoring="f1_weighted",
+            n_jobs=-1
         ),
-        "Multinomial Naive Bayes": MultinomialNB(),
+
+        "Logistic Regression": GridSearchCV(
+            LogisticRegression(
+                max_iter=3000,
+                class_weight="balanced",
+                random_state=RANDOM_STATE
+            ),
+            param_grid,
+            cv=cv,
+            scoring="f1_weighted",
+            n_jobs=-1
+        )
     }
 
     results = {}
+
+    # --------------------------------------------------------
+    # 8. EVALUATE EACH MODEL
+    # --------------------------------------------------------
+
     for name, model in candidates.items():
-        if name == "Multinomial Naive Bayes" and USE_METADATA_FEATURES:
-            # MultinomialNB requires non-negative features; TF-IDF is fine,
-            # but skip it here since the metadata one-hot mix can trip it up
-            continue
-        model.fit(X_train_vec, y_train)
-        preds = model.predict(X_test_vec)
-        acc = accuracy_score(y_test, preds)
-        results[name] = (model, preds, acc)
-        print(f"=== {name} ===")
-        if hasattr(model, "best_params_"):
-            print(f"Best C (5-fold CV): {model.best_params_['C']}")
-        print(f"Accuracy: {acc:.3f}")
-        print(classification_report(y_test, preds, zero_division=0))
-        print()
 
-    # ------------------------------------------------------------------
-    # 6. PICK THE BETTER MODEL
-    # ------------------------------------------------------------------
-    best_name = max(results, key=lambda n: results[n][2])
-    best_model, best_preds, best_acc = results[best_name]
-    print(f"Best model: {best_name} (accuracy {best_acc:.3f})")
+        print("\n" + "-" * 70)
+        print(name)
+        print("-" * 70)
 
-    # ------------------------------------------------------------------
-    # 7. CONFUSION MATRIX — the visual to show in your demo
-    # ------------------------------------------------------------------
-    labels_sorted = sorted(df["label"].unique())
-    # strip the emoji for the plot only (matplotlib's default font can't
-    # render them) — the saved model still uses the full label with emoji
-    plot_labels = [re.sub(r"[^\x00-\x7F]+", "", lbl).strip() for lbl in labels_sorted]
-    cm = confusion_matrix(y_test, best_preds, labels=labels_sorted)
-    plt.figure(figsize=(9, 7))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Purples",
-                xticklabels=plot_labels, yticklabels=plot_labels)
-    plt.title(f"Confusion Matrix — {best_name} (accuracy {best_acc:.1%})")
-    plt.xlabel("Predicted mood")
-    plt.ylabel("Actual mood")
-    plt.xticks(rotation=45, ha="right")
+        model.fit(
+            X_train_vec,
+            y_train
+        )
+
+        predictions = model.predict(
+            X_test_vec
+        )
+
+        accuracy = accuracy_score(
+            y_test,
+            predictions
+        )
+
+        precision = precision_score(
+            y_test,
+            predictions,
+            average="weighted",
+            zero_division=0
+        )
+
+        recall = recall_score(
+            y_test,
+            predictions,
+            average="weighted",
+            zero_division=0
+        )
+
+        f1 = f1_score(
+            y_test,
+            predictions,
+            average="weighted",
+            zero_division=0
+        )
+
+        results[name] = {
+            "model": model,
+            "predictions": predictions,
+            "accuracy": accuracy,
+            "precision": precision,
+            "recall": recall,
+            "f1": f1
+        }
+
+        print(
+            f"Best parameters: "
+            f"{model.best_params_}"
+        )
+
+        print(
+            f"Accuracy : {accuracy:.4f}"
+        )
+
+        print(
+            f"Precision: {precision:.4f}"
+        )
+
+        print(
+            f"Recall   : {recall:.4f}"
+        )
+
+        print(
+            f"F1 Score : {f1:.4f}"
+        )
+
+        print("\nClassification Report:")
+
+        print(
+            classification_report(
+                y_test,
+                predictions,
+                zero_division=0
+            )
+        )
+
+    # --------------------------------------------------------
+    # 9. SELECT BEST MODEL
+    # --------------------------------------------------------
+
+    best_name = max(
+        results,
+        key=lambda name: results[name]["f1"]
+    )
+
+    best_model = results[best_name]["model"]
+    best_predictions = results[best_name]["predictions"]
+
+    best_accuracy = results[best_name]["accuracy"]
+    best_precision = results[best_name]["precision"]
+    best_recall = results[best_name]["recall"]
+    best_f1 = results[best_name]["f1"]
+
+    print("\n" + "=" * 70)
+    print("BEST MODEL")
+    print("=" * 70)
+
+    print(f"Model     : {best_name}")
+    print(f"Accuracy  : {best_accuracy:.4f}")
+    print(f"Precision : {best_precision:.4f}")
+    print(f"Recall    : {best_recall:.4f}")
+    print(f"F1 Score  : {best_f1:.4f}")
+
+    # --------------------------------------------------------
+    # 10. CONFUSION MATRIX
+    # --------------------------------------------------------
+
+    labels_sorted = sorted(
+        df["label"].unique()
+    )
+
+    cm = confusion_matrix(
+        y_test,
+        best_predictions,
+        labels=labels_sorted
+    )
+
+    # Remove emoji from labels for matplotlib compatibility
+    plot_labels = [
+        re.sub(
+            r"[^\x00-\x7F]+",
+            "",
+            str(label)
+        ).strip()
+        for label in labels_sorted
+    ]
+
+    plt.figure(
+        figsize=(10, 8)
+    )
+
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Purples",
+        xticklabels=plot_labels,
+        yticklabels=plot_labels
+    )
+
+    plt.title(
+        f"Confusion Matrix - {best_name}"
+    )
+
+    plt.xlabel(
+        "Predicted Mood"
+    )
+
+    plt.ylabel(
+        "Actual Mood"
+    )
+
+    plt.xticks(
+        rotation=45,
+        ha="right"
+    )
+
     plt.tight_layout()
-    plt.savefig("confusion_matrix.png", dpi=150)
-    print("Saved confusion_matrix.png")
 
-    # ------------------------------------------------------------------
-    # 8. SAVE THE TRAINED MODEL + VECTORIZER (+ METADATA ENCODER IF USED)
-    # ------------------------------------------------------------------
-    joblib.dump(best_model, "mood_model.pkl")
-    joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
-    print("Saved mood_model.pkl and tfidf_vectorizer.pkl")
-    if USE_METADATA_FEATURES:
-        joblib.dump(meta_encoder, "metadata_encoder.pkl")
-        print("Saved metadata_encoder.pkl (needed alongside the model since "
-              "USE_METADATA_FEATURES is on)")
+    plt.savefig(
+        CONFUSION_MATRIX_PATH,
+        dpi=150
+    )
+
+    plt.close()
+
+    print(
+        f"\nConfusion matrix saved to:"
+        f"\n{CONFUSION_MATRIX_PATH}"
+    )
+
+    # --------------------------------------------------------
+    # 11. SAVE MODEL
+    # --------------------------------------------------------
+
+    print("\nSaving trained model...")
+
+    joblib.dump(
+        best_model,
+        MODEL_PATH
+    )
+
+    joblib.dump(
+        vectorizer,
+        VECTORIZER_PATH
+    )
+
+    if USE_METADATA and meta_encoder is not None:
+
+        joblib.dump(
+            meta_encoder,
+            METADATA_ENCODER_PATH
+        )
+
+    # --------------------------------------------------------
+    # 12. SAVE METRICS
+    # --------------------------------------------------------
+
+    metrics = {
+
+        "best_model": best_name,
+
+        "accuracy": round(
+            best_accuracy,
+            4
+        ),
+
+        "precision": round(
+            best_precision,
+            4
+        ),
+
+        "recall": round(
+            best_recall,
+            4
+        ),
+
+        "f1_score": round(
+            best_f1,
+            4
+        ),
+
+        "training_samples": int(
+            len(text_train)
+        ),
+
+        "testing_samples": int(
+            len(text_test)
+        ),
+
+        "feature_count": int(
+            X_train_vec.shape[1]
+        ),
+
+        "metadata_features": USE_METADATA
+    }
+
+    with open(
+        METRICS_PATH,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            metrics,
+            f,
+            indent=4
+        )
+
+    # --------------------------------------------------------
+    # 13. FINAL OUTPUT
+    # --------------------------------------------------------
+
+    print("\n" + "=" * 70)
+    print("TRAINING COMPLETED SUCCESSFULLY")
+    print("=" * 70)
+
+    print("\nGenerated files:")
+
+    print(f"1. {MODEL_PATH}")
+    print(f"2. {VECTORIZER_PATH}")
+
+    if USE_METADATA:
+        print(f"3. {METADATA_ENCODER_PATH}")
+
+    print(f"4. {CONFUSION_MATRIX_PATH}")
+    print(f"5. {METRICS_PATH}")
+
+    print("\nThe trained model can now be used by Flask.")
 
 
 if __name__ == "__main__":

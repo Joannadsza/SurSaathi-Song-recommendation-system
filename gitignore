@@ -16,3 +16,6 @@ venv/
 
 # OS
 .DS_Store
+model_train/*.pkl
+model_train/*.csv
+model_train/*.png
