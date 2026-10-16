@@ -1,0 +1,44 @@
+Words appearing in the most songs (document frequency) that are NOT in the
+hand-made stopword list. Candidates for data-driven stopwords; in the
+ablation this is applied as max_df=0.3 (drop terms in >30% of songs).
+
+tu             57.0%
+dil            52.0%
+tere           46.6%
+teri           40.0%
+meri           39.0%
+mere           37.9%
+de             36.9%
+mera           34.6%
+tera           34.3%
+le             26.1%
+ek             23.7%
+aa             23.4%
+har            22.3%
+ab             22.2%
+ne             20.5%
+haan           20.4%
+di             19.5%
+phir           19.2%
+oh             19.2%
+re             17.8%
+ishq           17.0%
+sab            16.8%
+jaan           16.7%
+mujhe          16.6%
+ae             16.2%
+da             16.0%
+te             15.5%
+raat           15.4%
+duniya         15.0%
+saare          15.0%
+din            14.8%
+do             14.5%
+ni             14.5%
+naa            13.9%
+ik             13.6%
+ve             13.6%
+aaj            13.6%
+jab            13.3%
+kabhi          13.0%
+nu             12.9%

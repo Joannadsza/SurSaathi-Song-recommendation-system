@@ -13,6 +13,7 @@ sursaathi-project/
 │   ├── app.py
 │   ├── requirements.txt
 │   └── data/sursaathi_data.json   (974 songs, precomputed lyric-similarity)
+├── model_train/           NLP pipeline, training, evaluation, similarity builder
 └── frontend/              React + Vite app
     ├── src/
     │   ├── components/    Header, SearchBar, MoodChips, SongCard, SongRow, Logo
@@ -51,14 +52,18 @@ Starts on `http://localhost:5173` — open that in your browser.
 
 ## How recommendations work
 
-`backend/data/sursaathi_data.json` was built offline from the Bollywood
-lyrics dataset:
-1. Lyrics cleaned (Hindi-Roman stopwords removed).
-2. TF-IDF (1–2 grams, theme-weighted) vectorized across all songs.
-3. Cosine similarity computed once; each song's top matches stored ahead
-   of time, so the API only does a lookup, not live computation.
-4. Mood-based recommendations use the dataset's own multi-label mood tags
-   (already present in the source CSV) and rank by number of shared tags.
+* **Lyric similarity** — `model_train/build_similarity.py` cleans lyrics,
+  builds word 1-2-gram TF-IDF (+ a small theme block), computes cosine
+  similarity once and stores each song's top 8 neighbours in
+  `backend/data/sursaathi_data.json` (`sims`). The API only reads them.
+* **Mood** — `model_train/train_mood_model.py` trains a Linear SVM / Logistic
+  Regression on word + character TF-IDF plus energy/theme/occasion features.
+  `backend/app.py` loads it, predicts a song's mood and returns songs tagged
+  with that mood.
+* Shared preprocessing: `model_train/nlp_pipeline.py` (used by training,
+  evaluation, similarity and the API).
+* Evaluation, ablations, error analysis: `model_train/evaluate_models.py` ->
+  `model_train/results/`. Full write-up: `VIVA_NOTES.md`.
 
 ## Notes
 

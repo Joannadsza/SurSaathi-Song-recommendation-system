@@ -1,0 +1,18 @@
+Config: H. G + metadata (LR)
+(out-of-fold predictions, 5-fold CV)
+
+                precision    recall  f1-score   support
+
+        Calm 🌿       0.48      0.53      0.50        59
+       Dance 💃       0.33      0.06      0.10        18
+   Emotional 💙       0.74      0.66      0.70       461
+       Happy 😊       0.67      0.11      0.19        37
+Motivational 💪       0.70      0.81      0.75        91
+       Party 🎉       0.57      0.86      0.69        74
+  Patriotic 🇮🇳       0.46      0.75      0.57        16
+   Romantic ❤️       0.65      0.68      0.66       160
+         Sad 😢       0.45      0.64      0.53        58
+
+      accuracy                           0.65       974
+     macro avg       0.56      0.57      0.52       974
+  weighted avg       0.66      0.65      0.64       974

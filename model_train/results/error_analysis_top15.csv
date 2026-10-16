@@ -1,0 +1,16 @@
+song,actual,predicted,confidence,theme,primary_emotion,n_words
+Kikli,Emotional 💙,Romantic ❤️,0.965,Love,Nostalgia,324
+Aradhya,Emotional 💙,Romantic ❤️,0.962,Love,Nostalgia,207
+Banna Banni,Happy 😊,Emotional 💙,0.959,Life,Joy,415
+Jugnu,Emotional 💙,Motivational 💪,0.955,Motivation,Nostalgia,276
+Good Morning,Emotional 💙,Motivational 💪,0.954,Motivation,Nostalgia,231
+Nazarbattu,Romantic ❤️,Emotional 💙,0.95,Breakup,Love,240
+Chavanprash,Romantic ❤️,Emotional 💙,0.948,Devotion,Devotion,383
+La Ilaaj,Emotional 💙,Romantic ❤️,0.944,Love,Nostalgia,166
+Tere Liye,Emotional 💙,Motivational 💪,0.941,Motivation,Nostalgia,229
+Chal Hatt,Party 🎉,Motivational 💪,0.937,Motivation,Excitement,255
+Gazab Ka Hai Din,Happy 😊,Motivational 💪,0.934,Motivation,Joy,165
+Daata Tu,Emotional 💙,Motivational 💪,0.929,Motivation,Nostalgia,203
+Kabhii Tumhhe (Female Version),Emotional 💙,Motivational 💪,0.925,Motivation,Nostalgia,122
+"Yeh Vaada Raha - From ""Yeh Vaada Raha""",Emotional 💙,Motivational 💪,0.925,Motivation,Nostalgia,325
+Good Man Di Laaltain,Patriotic 🇮🇳,Emotional 💙,0.925,Friendship,Pride,197
