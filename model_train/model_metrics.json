@@ -1,0 +1,19 @@
+{
+    "best_model": "Linear SVM",
+    "best_params": {
+        "C": 1
+    },
+    "cv_f1_weighted_train": 0.6359,
+    "model_comparison_cv_f1": {
+        "Linear SVM": 0.6359,
+        "Logistic Regression": 0.6247
+    },
+    "accuracy": 0.6872,
+    "precision": 0.6777,
+    "recall": 0.6872,
+    "f1_score": 0.6778,
+    "training_samples": 779,
+    "testing_samples": 195,
+    "feature_count": 16020,
+    "metadata_features": true
+}

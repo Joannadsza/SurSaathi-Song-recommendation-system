@@ -1,0 +1,341 @@
+song,actual,predicted,confidence,theme,primary_emotion,n_words
+Kikli,Emotional 💙,Romantic ❤️,0.965,Love,Nostalgia,324
+Aradhya,Emotional 💙,Romantic ❤️,0.962,Love,Nostalgia,207
+Banna Banni,Happy 😊,Emotional 💙,0.959,Life,Joy,415
+Jugnu,Emotional 💙,Motivational 💪,0.955,Motivation,Nostalgia,276
+Good Morning,Emotional 💙,Motivational 💪,0.954,Motivation,Nostalgia,231
+Nazarbattu,Romantic ❤️,Emotional 💙,0.95,Breakup,Love,240
+Chavanprash,Romantic ❤️,Emotional 💙,0.948,Devotion,Devotion,383
+La Ilaaj,Emotional 💙,Romantic ❤️,0.944,Love,Nostalgia,166
+Tere Liye,Emotional 💙,Motivational 💪,0.941,Motivation,Nostalgia,229
+Chal Hatt,Party 🎉,Motivational 💪,0.937,Motivation,Excitement,255
+Gazab Ka Hai Din,Happy 😊,Motivational 💪,0.934,Motivation,Joy,165
+Daata Tu,Emotional 💙,Motivational 💪,0.929,Motivation,Nostalgia,203
+Kabhii Tumhhe (Female Version),Emotional 💙,Motivational 💪,0.925,Motivation,Nostalgia,122
+"Yeh Vaada Raha - From ""Yeh Vaada Raha""",Emotional 💙,Motivational 💪,0.925,Motivation,Nostalgia,325
+Good Man Di Laaltain,Patriotic 🇮🇳,Emotional 💙,0.925,Friendship,Pride,197
+Raanjhan,Emotional 💙,Romantic ❤️,0.921,Love,Nostalgia,219
+Zindagi,Happy 😊,Motivational 💪,0.92,Motivation,Joy,132
+Sab Badhiya Hai,Motivational 💪,Patriotic 🇮🇳,0.919,Patriotism,Determination,147
+Main Zinda Hoon,Sad 😢,Emotional 💙,0.919,Friendship,Sadness,237
+Zindagi Tere Naam,Emotional 💙,Motivational 💪,0.917,Motivation,Nostalgia,169
+Question Mark,Emotional 💙,Motivational 💪,0.913,Motivation,Nostalgia,227
+Nanhi Si Jaan,Romantic ❤️,Emotional 💙,0.911,Devotion,Devotion,184
+Sye Raa Title Song,Emotional 💙,Patriotic 🇮🇳,0.909,Patriotism,Nostalgia,328
+Sleepy Sleepy Akhiyan,Emotional 💙,Party 🎉,0.909,Celebration,Nostalgia,195
+Rang Bhariya,Happy 😊,Motivational 💪,0.909,Motivation,Joy,212
+Teri Mitti,Emotional 💙,Romantic ❤️,0.906,Love,Nostalgia,259
+Radhe Radhe,Romantic ❤️,Emotional 💙,0.906,Devotion,Devotion,135
+Dil Mere Na Sune,Emotional 💙,Romantic ❤️,0.906,Love,Nostalgia,244
+Sawan Mein Lag Gayi Aag,Emotional 💙,Romantic ❤️,0.902,Love,Nostalgia,340
+Seeti Maar,Emotional 💙,Party 🎉,0.901,Celebration,Nostalgia,239
+Dil De Diya,Emotional 💙,Romantic ❤️,0.897,Love,Nostalgia,127
+Jeena Jeena,Emotional 💙,Motivational 💪,0.896,Motivation,Nostalgia,164
+Pappi Le Loon,Romantic ❤️,Emotional 💙,0.889,Breakup,Love,176
+Dhak Dhak,Calm 🌿,Emotional 💙,0.889,Celebration,Peace,213
+Rocket Saiyyan,Romantic ❤️,Emotional 💙,0.887,Friendship,Love,129
+Khadke Glassy,Emotional 💙,Romantic ❤️,0.886,Love,Nostalgia,254
+Dooriyan,Romantic ❤️,Emotional 💙,0.885,Breakup,Love,217
+Fakira,Emotional 💙,Motivational 💪,0.881,Motivation,Nostalgia,195
+Gal Ban Jau,Romantic ❤️,Party 🎉,0.88,Celebration,Love,206
+Challa (Main Lad Jaana),Emotional 💙,Motivational 💪,0.88,Motivation,Nostalgia,186
+Shubho Shubho,Happy 😊,Motivational 💪,0.879,Motivation,Joy,181
+Saansein Dene Aana (Duet),Emotional 💙,Romantic ❤️,0.878,Love,Nostalgia,138
+Naam Hai Bhaiaji,Emotional 💙,Motivational 💪,0.876,Motivation,Nostalgia,200
+Thapian,Emotional 💙,Motivational 💪,0.871,Motivation,Nostalgia,183
+Jugraafiya,Emotional 💙,Romantic ❤️,0.87,Love,Nostalgia,250
+Chin Chin Chu,Emotional 💙,Party 🎉,0.868,Celebration,Nostalgia,169
+Tu Meri Roja,Emotional 💙,Romantic ❤️,0.868,Love,Nostalgia,223
+Naach,Dance 💃,Party 🎉,0.867,Celebration,Excitement,160
+Sahiba Russ Gayiya,Emotional 💙,Romantic ❤️,0.867,Love,Nostalgia,158
+Dil Ne Kaha (Reprise),Calm 🌿,Romantic ❤️,0.866,Love,Peace,369
+Lae Dooba,Sad 😢,Romantic ❤️,0.865,Love,Sadness,178
+Vashmalle,Emotional 💙,Party 🎉,0.865,Celebration,Nostalgia,198
+Handsome Jatta,Dance 💃,Emotional 💙,0.863,Friendship,Excitement,315
+Param Sundari,Romantic ❤️,Emotional 💙,0.862,Devotion,Devotion,268
+Tunu Tunu,Emotional 💙,Party 🎉,0.858,Celebration,Nostalgia,194
+Ho Ja Rangeela Re,Dance 💃,Party 🎉,0.856,Celebration,Excitement,188
+Oye Hichki,Emotional 💙,Calm 🌿,0.855,Life,Nostalgia,140
+Marjaawaan,Romantic ❤️,Emotional 💙,0.855,Friendship,Love,199
+Wahi Hai Raste,Calm 🌿,Sad 😢,0.852,Breakup,Peace,154
+Kamariya,Dance 💃,Party 🎉,0.852,Celebration,Excitement,215
+OMG Daddy,Party 🎉,Emotional 💙,0.851,Celebration,Excitement,287
+Aaya Re Thackeray,Emotional 💙,Patriotic 🇮🇳,0.851,Patriotism,Nostalgia,207
+Koka,Emotional 💙,Party 🎉,0.849,Celebration,Nostalgia,218
+Odhani,Party 🎉,Emotional 💙,0.846,Celebration,Excitement,170
+Aafat,Romantic ❤️,Emotional 💙,0.842,Breakup,Love,121
+Saade Kothe Utte,Happy 😊,Emotional 💙,0.841,Wedding,Joy,264
+Maati Ko Maa Kehte Hain,Emotional 💙,Patriotic 🇮🇳,0.84,Patriotism,Nostalgia,246
+Speaker Phat Jaaye,Dance 💃,Party 🎉,0.838,Celebration,Excitement,113
+Naino Ne Baandhi,Emotional 💙,Motivational 💪,0.837,Motivation,Nostalgia,174
+"Dilbar (From ""Satyameva Jayate"")",Emotional 💙,Romantic ❤️,0.833,Love,Nostalgia,182
+Laaj Sharam,Dance 💃,Party 🎉,0.831,Devotion,Devotion,277
+"Manike (From ""Thank God"")",Emotional 💙,Romantic ❤️,0.829,Love,Nostalgia,217
+Sura Soi,Romantic ❤️,Emotional 💙,0.828,Breakup,Love,167
+Tafreeh,Happy 😊,Party 🎉,0.825,Celebration,Joy,155
+Glassy 2.0,Romantic ❤️,Party 🎉,0.825,Celebration,Love,278
+Dhindhora Baje Re,Emotional 💙,Romantic ❤️,0.823,Love,Nostalgia,184
+What The Luck,Emotional 💙,Romantic ❤️,0.821,Friendship,Nostalgia,254
+Rubaru,Emotional 💙,Motivational 💪,0.82,Motivation,Nostalgia,152
+Jai Hanumaan,Emotional 💙,Calm 🌿,0.818,Life,Nostalgia,169
+Stepney,Emotional 💙,Romantic ❤️,0.816,Love,Nostalgia,131
+Mehndi,Romantic ❤️,Party 🎉,0.816,Celebration,Love,243
+Doobi Doobi,Emotional 💙,Calm 🌿,0.815,Festival,Nostalgia,222
+Tujhe Hasil Karunga,Sad 😢,Romantic ❤️,0.812,Love,Sadness,185
+Mahiye Jinna Sohna Unplugged,Emotional 💙,Motivational 💪,0.806,Motivation,Nostalgia,153
+Ishqbaaziyaan,Emotional 💙,Romantic ❤️,0.806,Love,Nostalgia,175
+Kangan Ruby,Emotional 💙,Romantic ❤️,0.801,Love,Nostalgia,134
+Dil Pe Phod Du,Emotional 💙,Romantic ❤️,0.799,Love,Nostalgia,164
+Lag Ja Gale,Romantic ❤️,Emotional 💙,0.796,Friendship,Love,143
+Udta Teetar,Motivational 💪,Emotional 💙,0.794,Motivation,Determination,157
+Bathukamma,Emotional 💙,Calm 🌿,0.792,Devotion,Nostalgia,109
+Kasumbi,Emotional 💙,Patriotic 🇮🇳,0.787,Patriotism,Nostalgia,309
+Ghar Layenge Gold,Motivational 💪,Party 🎉,0.786,Celebration,Determination,259
+Ishq Fitoori,Emotional 💙,Romantic ❤️,0.785,Love,Nostalgia,100
+Basanti,Dance 💃,Party 🎉,0.784,Celebration,Excitement,141
+Thaar Maar Thakkar Maar,Emotional 💙,Party 🎉,0.784,Celebration,Nostalgia,323
+Watna Ve,Calm 🌿,Patriotic 🇮🇳,0.781,Patriotism,Peace,242
+Babe Bhangra Paunde Ne,Dance 💃,Party 🎉,0.779,Celebration,Excitement,180
+Thaan Liya,Motivational 💪,Emotional 💙,0.778,Devotion,Devotion,237
+Aye Zindagi,Emotional 💙,Motivational 💪,0.777,Motivation,Nostalgia,186
+Saheb Tu Sarkar Tu,Calm 🌿,Patriotic 🇮🇳,0.776,Patriotism,Peace,273
+Billi Billi,Emotional 💙,Party 🎉,0.775,Celebration,Nostalgia,313
+Tab Bhi Tu,Emotional 💙,Patriotic 🇮🇳,0.775,Patriotism,Nostalgia,197
+Lalkaare,Emotional 💙,Party 🎉,0.771,Celebration,Nostalgia,234
+Soorma Anthem,Motivational 💪,Patriotic 🇮🇳,0.769,Patriotism,Determination,253
+Dhadak - Title Track,Emotional 💙,Motivational 💪,0.764,Motivation,Nostalgia,140
+Tera Chehra,Calm 🌿,Romantic ❤️,0.764,Love,Peace,164
+Shoot Da Order,Party 🎉,Emotional 💙,0.762,Friendship,Excitement,241
+Rab Ne Milaya,Romantic ❤️,Emotional 💙,0.762,Devotion,Devotion,131
+Hu Ba Hu,Emotional 💙,Motivational 💪,0.761,Motivation,Nostalgia,204
+La La La,Romantic ❤️,Emotional 💙,0.76,Friendship,Love,313
+Balma,Emotional 💙,Party 🎉,0.758,Celebration,Nostalgia,226
+Naiyo Lagda,Calm 🌿,Romantic ❤️,0.755,Love,Peace,252
+Mera Sufi Ishq,Emotional 💙,Romantic ❤️,0.752,Love,Nostalgia,212
+Lavkar Love Karuya,Romantic ❤️,Emotional 💙,0.75,Friendship,Love,262
+Gal Sun,Emotional 💙,Sad 😢,0.749,Breakup,Nostalgia,244
+Mujhe Ishq Sikha Karke,Emotional 💙,Romantic ❤️,0.744,Love,Nostalgia,106
+Ji Huzoor,Motivational 💪,Emotional 💙,0.742,Friendship,Determination,215
+Bhangra Ta Sajda (No One Gives A Damn),Dance 💃,Party 🎉,0.736,Celebration,Excitement,383
+Tu Jaanta Nahi,Romantic ❤️,Emotional 💙,0.732,Friendship,Love,316
+Khushmizaaj,Happy 😊,Motivational 💪,0.73,Motivation,Joy,111
+Door Na Ja,Romantic ❤️,Emotional 💙,0.726,Devotion,Devotion,114
+Raula Pae Gayaa,Sad 😢,Calm 🌿,0.726,Breakup,Sadness,382
+Mor,Romantic ❤️,Emotional 💙,0.723,Breakup,Love,241
+Dhik Chik,Dance 💃,Party 🎉,0.721,Celebration,Excitement,230
+Pandarathi Puranam,Romantic ❤️,Emotional 💙,0.72,Devotion,Devotion,214
+Fakira,Sad 😢,Emotional 💙,0.719,Friendship,Sadness,148
+Sui Dhaaga,Dance 💃,Party 🎉,0.719,Celebration,Excitement,251
+Jinna Jinna,Emotional 💙,Romantic ❤️,0.716,Love,Nostalgia,179
+Jannat,Romantic ❤️,Emotional 💙,0.709,Devotion,Devotion,223
+Manmeet Mere,Happy 😊,Emotional 💙,0.699,Friendship,Joy,156
+Chad Gayi Hai,Dance 💃,Party 🎉,0.698,Celebration,Excitement,218
+Dil Bandar,Emotional 💙,Party 🎉,0.696,Celebration,Nostalgia,169
+Sakhiyan 2.0,Emotional 💙,Romantic ❤️,0.693,Friendship,Nostalgia,256
+Yaane Yaane,Happy 😊,Emotional 💙,0.692,Devotion,Joy,202
+Andekhi,Emotional 💙,Party 🎉,0.691,Celebration,Nostalgia,144
+Gallan Kardi,Emotional 💙,Party 🎉,0.691,Celebration,Nostalgia,267
+Jhoome Jo Pathaan,Emotional 💙,Romantic ❤️,0.69,Friendship,Nostalgia,320
+Mantoiyat,Emotional 💙,Patriotic 🇮🇳,0.688,Patriotism,Nostalgia,405
+Holi Biraj Ma,Romantic ❤️,Emotional 💙,0.686,Festival,Love,294
+Ankhein Mili,Emotional 💙,Romantic ❤️,0.686,Love,Nostalgia,234
+"Halka Halka (From ""Fanney Khan"")",Romantic ❤️,Emotional 💙,0.683,Devotion,Devotion,199
+Aahista,Emotional 💙,Sad 😢,0.683,Breakup,Nostalgia,129
+Mishri Di Dali,Romantic ❤️,Emotional 💙,0.682,Friendship,Love,273
+Chanel No 5,Emotional 💙,Party 🎉,0.68,Celebration,Nostalgia,244
+Shubh Din,Romantic ❤️,Party 🎉,0.679,Celebration,Love,142
+Sapna Hai Sach Hai,Motivational 💪,Emotional 💙,0.679,Breakup,Determination,147
+Gudgudi,Emotional 💙,Motivational 💪,0.675,Motivation,Nostalgia,147
+Chaleya,Emotional 💙,Romantic ❤️,0.672,Love,Nostalgia,326
+Gol Gappa,Emotional 💙,Sad 😢,0.67,Breakup,Nostalgia,276
+Joganiya,Emotional 💙,Party 🎉,0.666,Celebration,Nostalgia,176
+Kundali,Emotional 💙,Romantic ❤️,0.666,Love,Nostalgia,204
+Jee Rahe The Hum (Falling In Love),Romantic ❤️,Emotional 💙,0.664,Friendship,Love,167
+Khatar Patar,Dance 💃,Party 🎉,0.656,Celebration,Excitement,303
+Apnya Di Thaa,Emotional 💙,Romantic ❤️,0.655,Love,Nostalgia,111
+Selfish,Sad 😢,Calm 🌿,0.651,Life,Sadness,142
+Raat Youn Dil Main Teri,Emotional 💙,Patriotic 🇮🇳,0.649,Patriotism,Nostalgia,135
+Choti Choti Gal,Sad 😢,Emotional 💙,0.649,Life,Sadness,122
+Chonch Ladhiyaan,Dance 💃,Party 🎉,0.647,Celebration,Excitement,253
+Phir Aur Kya Chahiye,Romantic ❤️,Emotional 💙,0.647,Devotion,Devotion,334
+Kis Raste Hai Jana,Motivational 💪,Emotional 💙,0.646,Devotion,Devotion,177
+Doobey,Emotional 💙,Motivational 💪,0.644,Motivation,Nostalgia,184
+Aaja Ve,Romantic ❤️,Sad 😢,0.643,Devotion,Devotion,191
+Mauj - E - Karam,Happy 😊,Emotional 💙,0.639,Devotion,Devotion,250
+Tujhse Kahan Juda Hoon Main,Romantic ❤️,Emotional 💙,0.637,Devotion,Devotion,172
+Bajaa Bajaa Dhol Bajaa,Happy 😊,Emotional 💙,0.636,Breakup,Joy,295
+Kanha,Emotional 💙,Romantic ❤️,0.635,Love,Nostalgia,119
+Bandi Tot,Emotional 💙,Calm 🌿,0.634,Breakup,Nostalgia,346
+Don't Be Shy Again,Emotional 💙,Romantic ❤️,0.63,Love,Nostalgia,250
+Farq hai,Emotional 💙,Calm 🌿,0.628,Life,Nostalgia,90
+Woh Ladki Hai Kahan,Romantic ❤️,Emotional 💙,0.627,Friendship,Love,260
+Pardesiya,Motivational 💪,Emotional 💙,0.626,Breakup,Determination,198
+Meri Patli Kamar,Emotional 💙,Motivational 💪,0.615,Motivation,Nostalgia,182
+Din Dahade,Happy 😊,Romantic ❤️,0.614,Friendship,Joy,251
+Nindiyaa,Motivational 💪,Emotional 💙,0.613,Breakup,Determination,111
+Kurta Chadra,Romantic ❤️,Emotional 💙,0.611,Love,Love,233
+Chamak,Emotional 💙,Party 🎉,0.609,Celebration,Nostalgia,231
+O Yaara Dil Lagana,Emotional 💙,Romantic ❤️,0.608,Friendship,Nostalgia,196
+O Sita,Motivational 💪,Emotional 💙,0.606,Devotion,Devotion,251
+Fukrey Returns,Dance 💃,Emotional 💙,0.606,Devotion,Devotion,127
+Duffermasti,Happy 😊,Romantic ❤️,0.605,Love,Joy,178
+Asmaan Di Pari,Emotional 💙,Calm 🌿,0.604,Breakup,Nostalgia,340
+Tum Aisi Kyun Ho,Happy 😊,Emotional 💙,0.601,Wedding,Joy,200
+Doori,Emotional 💙,Sad 😢,0.597,Breakup,Nostalgia,335
+Firdosya,Sad 😢,Patriotic 🇮🇳,0.595,Patriotism,Sadness,131
+Khol De Par,Calm 🌿,Sad 😢,0.593,Breakup,Peace,197
+Mumma Ki Parchai,Romantic ❤️,Emotional 💙,0.592,Friendship,Love,267
+Peepa,Patriotic 🇮🇳,Emotional 💙,0.585,Festival,Pride,149
+Shart Reprise,Romantic ❤️,Emotional 💙,0.585,Devotion,Devotion,170
+Mann Mein Halchal,Sad 😢,Calm 🌿,0.584,Life,Sadness,113
+Chhod Diya,Calm 🌿,Sad 😢,0.58,Breakup,Peace,201
+Oh Isha,Emotional 💙,Calm 🌿,0.58,Life,Nostalgia,117
+The Pad Man Song,Emotional 💙,Party 🎉,0.579,Celebration,Nostalgia,223
+First Class,Romantic ❤️,Emotional 💙,0.577,Festival,Love,267
+Kuch Paas Mere,Calm 🌿,Sad 😢,0.576,Life,Peace,144
+Jiya Nahin Lagta,Emotional 💙,Sad 😢,0.575,Motivation,Nostalgia,153
+Ik Mulaqaat,Emotional 💙,Romantic ❤️,0.575,Love,Nostalgia,250
+Aap Se Milkar,Emotional 💙,Party 🎉,0.574,Celebration,Nostalgia,140
+Aakhri Kadam Tak,Sad 😢,Emotional 💙,0.573,Devotion,Devotion,127
+Gall Mann Le Meri,Happy 😊,Party 🎉,0.571,Celebration,Joy,257
+Aaj Se Teri,Happy 😊,Emotional 💙,0.568,Celebration,Joy,325
+Chhal Gaya Chhalaa,Calm 🌿,Emotional 💙,0.566,Breakup,Peace,120
+Ek Galti,Emotional 💙,Romantic ❤️,0.562,Love,Nostalgia,291
+Hum Hain Insaaf,Emotional 💙,Patriotic 🇮🇳,0.561,Patriotism,Nostalgia,292
+Beqaaboo,Emotional 💙,Calm 🌿,0.561,Life,Nostalgia,141
+Rock A Bye Baby,Happy 😊,Calm 🌿,0.56,Life,Joy,233
+Yaaron Ka Bulaava,Happy 😊,Emotional 💙,0.56,Friendship,Joy,340
+Pal Pal Dil Ke Paas (Title Song),Emotional 💙,Romantic ❤️,0.56,Friendship,Nostalgia,274
+Nain,Emotional 💙,Romantic ❤️,0.56,Love,Nostalgia,353
+Yaariyan Di Kasam,Motivational 💪,Emotional 💙,0.557,Friendship,Determination,175
+Bhasad,Motivational 💪,Emotional 💙,0.556,Wedding,Determination,245
+Carry On Jatta 2,Emotional 💙,Romantic ❤️,0.553,Friendship,Nostalgia,238
+Allah Hoo Allah,Emotional 💙,Sad 😢,0.552,Devotion,Devotion,347
+Khoya Ujaala,Calm 🌿,Sad 😢,0.552,Breakup,Peace,159
+Womaniya,Emotional 💙,Calm 🌿,0.551,Life,Nostalgia,174
+Naya Pyaar Naya Ehsaas,Emotional 💙,Romantic ❤️,0.551,Friendship,Nostalgia,212
+Iraade Kar Buland,Motivational 💪,Emotional 💙,0.548,Motivation,Determination,261
+Ruk Ruk,Calm 🌿,Emotional 💙,0.544,Devotion,Peace,232
+Maee Re,Emotional 💙,Calm 🌿,0.544,Life,Nostalgia,150
+Jaisi Teri Marzi,Emotional 💙,Romantic ❤️,0.542,Love,Nostalgia,154
+Gud Naal Ishq Mitha,Romantic ❤️,Emotional 💙,0.541,Love,Love,328
+Beat Pe Thumka,Emotional 💙,Party 🎉,0.54,Celebration,Nostalgia,219
+Umr Guzri,Calm 🌿,Sad 😢,0.54,Motivation,Peace,69
+Zumba,Emotional 💙,Dance 💃,0.538,Devotion,Devotion,326
+De De Jagah,Emotional 💙,Motivational 💪,0.538,Devotion,Nostalgia,183
+Fraud Saiyaan,Emotional 💙,Romantic ❤️,0.535,Love,Nostalgia,131
+Coolie No. 1 (Title Track),Emotional 💙,Party 🎉,0.534,Celebration,Nostalgia,139
+Main Kaun Hoon,Calm 🌿,Sad 😢,0.533,Breakup,Peace,194
+Om Namah Shivay,Emotional 💙,Calm 🌿,0.532,Devotion,Devotion,224
+Awaaz,Emotional 💙,Sad 😢,0.531,Devotion,Devotion,327
+Friends Bhi Family Hain,Party 🎉,Emotional 💙,0.53,Friendship,Excitement,144
+Jane Kis Mod Pe,Happy 😊,Motivational 💪,0.529,Devotion,Devotion,119
+Shart,Romantic ❤️,Emotional 💙,0.523,Devotion,Devotion,144
+Nasha Ishq Ka,Emotional 💙,Romantic ❤️,0.519,Love,Nostalgia,191
+Kinna Sona,Emotional 💙,Romantic ❤️,0.519,Friendship,Nostalgia,206
+Satt Bande,Emotional 💙,Happy 😊,0.519,Wedding,Devotion,405
+Aadha Bhi Zyaada,Emotional 💙,Calm 🌿,0.518,Devotion,Nostalgia,137
+Zilla Hilela,Emotional 💙,Party 🎉,0.516,Celebration,Nostalgia,162
+Tu Banja Gali Benaras Ki,Emotional 💙,Party 🎉,0.512,Celebration,Nostalgia,169
+Re Sardar,Emotional 💙,Patriotic 🇮🇳,0.511,Patriotism,Nostalgia,196
+Ek Haseena Thi Ek Deewana Tha,Sad 😢,Calm 🌿,0.509,Breakup,Sadness,147
+Dori Tutt Gaiyaan,Emotional 💙,Sad 😢,0.504,Motivation,Nostalgia,137
+Udd Jaa Kaale Kaava,Emotional 💙,Romantic ❤️,0.501,Friendship,Nostalgia,140
+Thiraktein,Romantic ❤️,Emotional 💙,0.5,Friendship,Love,158
+Ala Vaikunthapurramuloo,Emotional 💙,Calm 🌿,0.496,Devotion,Devotion,99
+Ole Ole 2.0,Emotional 💙,Party 🎉,0.495,Celebration,Nostalgia,177
+Heeriye,Sad 😢,Calm 🌿,0.492,Life,Sadness,350
+Jab Saiyaan,Romantic ❤️,Emotional 💙,0.492,Love,Love,163
+Dekho Dekho,Emotional 💙,Calm 🌿,0.491,Life,Nostalgia,213
+Masakali,Emotional 💙,Calm 🌿,0.488,Breakup,Nostalgia,235
+Raazi,Emotional 💙,Calm 🌿,0.487,Life,Nostalgia,215
+Ek Hee Raasta,Sad 😢,Calm 🌿,0.486,Love,Sadness,96
+Saheli,Happy 😊,Emotional 💙,0.483,Friendship,Joy,175
+Glock,Sad 😢,Emotional 💙,0.482,Friendship,Sadness,236
+Mann Mein Shiva,Patriotic 🇮🇳,Emotional 💙,0.482,Devotion,Devotion,479
+Shukrana Gul Khile,Emotional 💙,Sad 😢,0.48,Devotion,Devotion,210
+Mehram,Emotional 💙,Sad 😢,0.48,Devotion,Devotion,215
+Tere Siva,Emotional 💙,Sad 😢,0.479,Breakup,Nostalgia,191
+Jaan 'Nisaar,Emotional 💙,Romantic ❤️,0.478,Friendship,Nostalgia,147
+Tauba Tumhare Ishare,Emotional 💙,Party 🎉,0.477,Celebration,Nostalgia,225
+Angana,Emotional 💙,Sad 😢,0.476,Breakup,Nostalgia,234
+Dilbaro,Emotional 💙,Romantic ❤️,0.475,Love,Nostalgia,207
+Saansein Bhari Hai (Male Version),Happy 😊,Romantic ❤️,0.474,Love,Joy,155
+Veere,Patriotic 🇮🇳,Calm 🌿,0.473,Patriotism,Pride,232
+Fuel,Dance 💃,Romantic ❤️,0.473,Friendship,Devotion,180
+The Naari Naari Song,Happy 😊,Emotional 💙,0.472,Friendship,Joy,211
+Madamji Go Easy,Emotional 💙,Party 🎉,0.472,Celebration,Nostalgia,207
+Little Little,Party 🎉,Emotional 💙,0.472,Friendship,Devotion,244
+Vande Mataram,Emotional 💙,Sad 😢,0.471,Devotion,Devotion,170
+Jind Meriye,Calm 🌿,Sad 😢,0.471,Devotion,Peace,242
+Badumba,Happy 😊,Emotional 💙,0.469,Friendship,Joy,78
+Jamnapaar,Romantic ❤️,Emotional 💙,0.468,Friendship,Love,171
+Nok Jhok,Sad 😢,Emotional 💙,0.468,Life,Sadness,228
+Ali Ali,Sad 😢,Emotional 💙,0.468,Devotion,Devotion,222
+Paagla,Happy 😊,Emotional 💙,0.467,Devotion,Devotion,204
+Ghar More Pardesiya,Romantic ❤️,Emotional 💙,0.467,Love,Love,371
+Bhangra Paa Le,Dance 💃,Party 🎉,0.467,Celebration,Excitement,224
+The Mercury Song,Romantic ❤️,Emotional 💙,0.467,Friendship,Love,268
+Sawarne Lage,Calm 🌿,Emotional 💙,0.465,Life,Peace,101
+Aankhon Mein Aansoon,Emotional 💙,Sad 😢,0.463,Breakup,Nostalgia,271
+Zingaat,Dance 💃,Party 🎉,0.462,Celebration,Excitement,344
+Shukriya,Happy 😊,Sad 😢,0.461,Devotion,Joy,162
+Ho Jaa Awara,Calm 🌿,Emotional 💙,0.46,Life,Peace,195
+Khwabfaroshi,Calm 🌿,Sad 😢,0.458,Breakup,Peace,212
+Jee Len De,Happy 😊,Sad 😢,0.457,Breakup,Joy,193
+Badla,Romantic ❤️,Emotional 💙,0.456,Friendship,Love,215
+Mungda,Party 🎉,Emotional 💙,0.456,Breakup,Excitement,246
+Khuda Haafiz (Title Track),Romantic ❤️,Emotional 💙,0.453,Devotion,Devotion,65
+Marne Ka Shauk,Happy 😊,Emotional 💙,0.452,Breakup,Joy,228
+Jhoome Jo Pathaan,Romantic ❤️,Emotional 💙,0.449,Friendship,Love,207
+Qasam Kha Li,Calm 🌿,Sad 😢,0.447,Breakup,Peace,144
+Tich Button,Romantic ❤️,Emotional 💙,0.44,Love,Love,185
+Chand Lamhe,Happy 😊,Emotional 💙,0.44,Friendship,Joy,236
+Mehfooz,Motivational 💪,Emotional 💙,0.438,Devotion,Devotion,153
+Bajre Da Sitta (Title Song),Romantic ❤️,Emotional 💙,0.438,Love,Love,152
+Ladies Paan,Calm 🌿,Emotional 💙,0.429,Breakup,Peace,211
+Kanjoos,Emotional 💙,Calm 🌿,0.423,Life,Nostalgia,229
+Gulbadan,Emotional 💙,Calm 🌿,0.418,Love,Nostalgia,202
+Mere Laalna,Sad 😢,Emotional 💙,0.417,Devotion,Sadness,114
+Tuk Tuk,Calm 🌿,Emotional 💙,0.417,Friendship,Peace,235
+Guzarish,Emotional 💙,Sad 😢,0.416,Breakup,Nostalgia,248
+Jaane De,Sad 😢,Calm 🌿,0.409,Life,Sadness,227
+Kudiye Ni Tere,Emotional 💙,Calm 🌿,0.409,Life,Nostalgia,349
+Saathiya,Emotional 💙,Sad 😢,0.407,Devotion,Nostalgia,119
+Asli Hip Hop,Patriotic 🇮🇳,Calm 🌿,0.406,Patriotism,Pride,222
+Gehraiyaan (Title Track),Calm 🌿,Emotional 💙,0.405,Life,Peace,89
+Raabta,Motivational 💪,Emotional 💙,0.402,Devotion,Devotion,249
+Main Bhi Nahin Soya,Sad 😢,Emotional 💙,0.401,Breakup,Sadness,255
+Ghar Bhara Sa Lage,Sad 😢,Romantic ❤️,0.399,Love,Sadness,170
+Ishq Jeha Ho Gya,Romantic ❤️,Emotional 💙,0.397,Love,Love,270
+Chehre - Title Track,Romantic ❤️,Emotional 💙,0.396,Friendship,Love,156
+Ghungroo,Emotional 💙,Romantic ❤️,0.393,Friendship,Nostalgia,306
+Dum Gutkoon,Sad 😢,Emotional 💙,0.39,Breakup,Sadness,280
+Ambarsar,Emotional 💙,Sad 😢,0.388,Breakup,Nostalgia,210
+Ziddi Hai Dil,Emotional 💙,Calm 🌿,0.387,Breakup,Nostalgia,250
+Oscar,Motivational 💪,Emotional 💙,0.387,Friendship,Determination,252
+Yaad Hai,Emotional 💙,Sad 😢,0.387,Breakup,Nostalgia,235
+Phir Chala,Emotional 💙,Sad 😢,0.385,Breakup,Nostalgia,165
+Thare Vaaste,Emotional 💙,Sad 😢,0.384,Breakup,Nostalgia,125
+Zaroori Bewakoofi,Happy 😊,Emotional 💙,0.379,Breakup,Joy,220
+Khuda Jaane,Calm 🌿,Emotional 💙,0.378,Devotion,Devotion,305
+Kisko Tha Pata,Emotional 💙,Romantic ❤️,0.378,Friendship,Nostalgia,244
+Beete Lamhein,Emotional 💙,Calm 🌿,0.374,Motivation,Nostalgia,226
+Taare Ginn,Happy 😊,Emotional 💙,0.373,Love,Joy,165
+Tum Aaogey,Sad 😢,Emotional 💙,0.372,Friendship,Sadness,137
+Main Viyah Nahi Karona Tere Naal (Title Track),Sad 😢,Emotional 💙,0.37,Friendship,Sadness,225
+Happy Bhag Jayegi,Happy 😊,Calm 🌿,0.37,Breakup,Joy,228
+Tu Mera Bhai Nahi Hai,Romantic ❤️,Emotional 💙,0.368,Friendship,Love,260
+Waareya,Happy 😊,Emotional 💙,0.367,Breakup,Joy,154
+Pasand Jatt Di,Party 🎉,Dance 💃,0.366,Devotion,Devotion,316
+Ghar Ke Hai Na Ghat Ke,Emotional 💙,Happy 😊,0.365,Breakup,Nostalgia,440
+Makhna,Romantic ❤️,Sad 😢,0.363,Breakup,Love,266
+Dil Ka Parinda,Emotional 💙,Calm 🌿,0.354,Breakup,Nostalgia,240
+Sher Aaya Sher,Calm 🌿,Sad 😢,0.353,Devotion,Devotion,258
+Tere Bina,Romantic ❤️,Emotional 💙,0.339,Devotion,Devotion,135
+Piya,Calm 🌿,Sad 😢,0.332,Devotion,Peace,146
+Dhyaanchand,Calm 🌿,Sad 😢,0.328,Motivation,Peace,323
+Afreeda,Romantic ❤️,Sad 😢,0.327,Friendship,Love,178
+Aaple Saheb Thackeray,Party 🎉,Emotional 💙,0.317,Devotion,Devotion,243
+Pe Geya Puaada,Calm 🌿,Emotional 💙,0.317,Devotion,Devotion,251
+Pal,Calm 🌿,Sad 😢,0.272,Love,Peace,178

@@ -1,0 +1,8 @@
+Recommender evaluation — precision@5 (higher is better)
+Metrics: mood-tag Jaccard | same primary mood | same theme
+(theme match is partly circular for the theme-weighted model)
+
+Random neighbours                                0.287 | 0.278 | 0.128
+Lyrics-only TF-IDF cosine                        0.337 | 0.343 | 0.218
+TF-IDF + theme weight 0.2 (FINAL)                0.420 | 0.420 | 0.658
+Previously stored sims (script not in repo)      0.358 | 0.361 | 0.316

@@ -20,8 +20,10 @@ Run:
 
 import json
 import random
-import re
+import sys
 from pathlib import Path
+
+import numpy as np
 
 import joblib
 import pandas as pd
@@ -42,7 +44,13 @@ DATA_PATH = BASE_DIR / "data" / "sursaathi_data.json"
 
 MODEL_DIR = BASE_DIR.parent / "model_train"
 
+# Shared preprocessing (identical to training) lives in model_train/
+sys.path.insert(0, str(MODEL_DIR))
+from nlp_pipeline import clean_roman_baseline as clean_lyrics  # noqa: E402
+
 MODEL_PATH = MODEL_DIR / "mood_model.pkl"
+
+METRICS_PATH = MODEL_DIR / "model_metrics.json"
 
 VECTORIZER_PATH = MODEL_DIR / "tfidf_vectorizer.pkl"
 
@@ -96,58 +104,6 @@ ALL_MOODS = [
     "Patriotic 🇮🇳",
 
 ]
-
-
-# ============================================================
-# STOPWORDS
-# ============================================================
-
-HINDI_ROMAN_STOPWORDS = {
-
-    "hai", "hain", "ho", "hoon", "hun",
-    "the", "thi", "tha",
-
-    "ka", "ki", "ke", "ko",
-    "se", "me", "mein", "main",
-
-    "hum", "humne",
-    "tum", "tumhe", "tumko",
-
-    "aur",
-    "na", "nahi",
-    "toh", "to",
-    "bhi",
-
-    "ye", "yeh",
-    "wo", "woh",
-
-    "jo",
-    "jaise",
-
-    "kya",
-    "kyun",
-    "kyu",
-
-    "koi",
-    "kuch",
-
-    "sa", "si",
-    "hi", "bas",
-
-    "par",
-    "pe",
-
-    "kar",
-    "gaye",
-    "gayi",
-    "gaya",
-
-    "diya",
-    "diye",
-
-    "liya"
-
-}
 
 
 # ============================================================
@@ -245,43 +201,6 @@ def load_ml_model():
 
 
 load_ml_model()
-
-
-# ============================================================
-# TEXT PREPROCESSING
-# ============================================================
-
-def clean_lyrics(text):
-
-    """
-    Apply the same preprocessing used during training.
-
-    IMPORTANT:
-    The preprocessing must be identical during training
-    and prediction.
-    """
-
-    text = str(text).lower()
-
-    text = re.sub(
-        r"[^a-z\s]",
-        " ",
-        text
-    )
-
-    words = []
-
-    for word in text.split():
-
-        if word in HINDI_ROMAN_STOPWORDS:
-            continue
-
-        if len(word) <= 1:
-            continue
-
-        words.append(word)
-
-    return " ".join(words)
 
 
 # ============================================================
@@ -400,10 +319,9 @@ def predict_mood(
 
                 scores = decision_scores[0]
 
-                # Convert decision scores into
-                # simple relative confidence.
-                import numpy as np
-
+                # Softmax over decision scores = relative score.
+                # (A calibrated probability for Logistic Regression;
+                #  only a relative score for Linear SVM.)
                 exp_scores = np.exp(
                     scores - np.max(scores)
                 )
@@ -953,6 +871,11 @@ def model_status():
 
         "metadataEncoderLoaded": (
             METADATA_ENCODER is not None
+        ),
+
+        "trainingMetrics": (
+            json.load(open(METRICS_PATH, encoding="utf-8"))
+            if METRICS_PATH.exists() else None
         )
 
     })

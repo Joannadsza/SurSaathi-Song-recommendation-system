@@ -18,4 +18,4 @@ venv/
 .DS_Store
 model_train/*.pkl
 model_train/*.csv
-model_train/*.png
+model_train/*.png!model_train/song_cleaned.csv

@@ -105,97 +105,14 @@ METADATA_COLUMNS = [
 
 
 # ============================================================
-# ROMAN HINDI + ENGLISH STOPWORDS
+# TEXT PREPROCESSING  (shared with backend + evaluation scripts)
 # ============================================================
+# Preprocessing lives in nlp_pipeline.py so training and the Flask API
+# can never drift apart. Spelling normalisation and Devanagari features
+# were tested in evaluate_models.py and did NOT improve CV scores, so the
+# baseline cleaner is used for the final model.
 
-HINDI_ROMAN_STOPWORDS = {
-    "hai", "hain", "ho", "hoon", "hun",
-    "the", "thi", "tha",
-
-    "ka", "ki", "ke", "ko",
-    "se", "me", "mein", "main",
-
-    "hum", "humne",
-    "tum", "tumhe", "tumko",
-
-    "aur",
-    "na", "nahi",
-    "toh", "to",
-    "bhi",
-
-    "ye", "yeh",
-    "wo", "woh",
-
-    "jo",
-    "jaise",
-
-    "kya",
-    "kyun",
-    "kyu",
-
-    "koi",
-    "kuch",
-
-    "sa", "si",
-    "hi",
-    "bas",
-
-    "par",
-    "pe",
-
-    "kar",
-    "gaye",
-    "gayi",
-    "gaya",
-
-    "diya",
-    "diye",
-
-    "liya"
-}
-
-
-# ============================================================
-# TEXT PREPROCESSING
-# ============================================================
-
-def clean_lyrics(text: str) -> str:
-    """
-    Preprocess song lyrics.
-
-    Steps:
-        1. Convert to lowercase
-        2. Remove numbers and punctuation
-        3. Tokenize using whitespace
-        4. Remove Roman-Hindi stopwords
-        5. Remove very short tokens
-
-    Stemming and lemmatization are intentionally not used because
-    the lyrics contain Romanized Hindi + English. Generic English
-    stemming/lemmatization can incorrectly alter Roman-Hindi words.
-    Character TF-IDF is used to handle spelling variations instead.
-    """
-
-    text = str(text).lower()
-
-    # Keep only alphabetic characters and spaces
-    text = re.sub(r"[^a-z\s]", " ", text)
-
-    words = []
-
-    for word in text.split():
-
-        # Remove stopwords
-        if word in HINDI_ROMAN_STOPWORDS:
-            continue
-
-        # Remove single-character words
-        if len(word) <= 1:
-            continue
-
-        words.append(word)
-
-    return " ".join(words)
+from nlp_pipeline import clean_roman_baseline as clean_lyrics
 
 
 # ============================================================
@@ -541,9 +458,11 @@ def main():
     # 9. SELECT BEST MODEL
     # --------------------------------------------------------
 
+    # Model selection uses the 5-fold CV score on the TRAINING data
+    # (GridSearchCV.best_score_), never the held-out test set.
     best_name = max(
         results,
-        key=lambda name: results[name]["f1"]
+        key=lambda name: results[name]["model"].best_score_
     )
 
     best_model = results[best_name]["model"]
@@ -638,8 +557,9 @@ def main():
 
     print("\nSaving trained model...")
 
+    # Save the fitted estimator itself (not the GridSearchCV wrapper)
     joblib.dump(
-        best_model,
+        best_model.best_estimator_,
         MODEL_PATH
     )
 
@@ -662,6 +582,18 @@ def main():
     metrics = {
 
         "best_model": best_name,
+
+        "best_params": best_model.best_params_,
+
+        "cv_f1_weighted_train": round(
+            float(best_model.best_score_),
+            4
+        ),
+
+        "model_comparison_cv_f1": {
+            n: round(float(r["model"].best_score_), 4)
+            for n, r in results.items()
+        },
 
         "accuracy": round(
             best_accuracy,

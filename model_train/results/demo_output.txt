@@ -1,0 +1,33 @@
+SONG: Tum Kahaan The — Palak Muchhal, Yasser Desai
+
+1) RAW LYRICS (first 200 chars)
+   Ek haseena thi ek deewana tha Kya kahoon tum se kya zamana tha Har jagaah to ye afsana tha Ek haseena thi ek deewana tha  Jab tuta tha tum se rootha tha Tum kahaan the..kahaan the..kahaan the Tum kaha 
+
+2) AFTER PREPROCESSING (lowercase, a-z only, stopwords out)
+   ek haseena ek deewana kahoon zamana har jagaah afsana ek haseena ek deewana jab tuta rootha kahaan kahaan kahaan kahaan kahaan kahaan kahaan kahaan kahaan kahaan kahaan kahaan aansoo peete tanhaa phir 
+
+3) TOP TF-IDF TERMS FOR THIS SONG (weight = tf × idf, L2-normalised)
+   kahaan kahaan          0.508
+   kahaan                 0.315
+   ek deewana             0.188
+   haseena ek             0.188
+   ek haseena             0.188
+   haseena                0.174
+   deewana                0.126
+   chup                   0.124
+   jaane kahaan           0.111
+   us waqt                0.111
+
+4) COSINE SIMILARITY  cos(a,b) = a·b / (|a||b|)  (rows are unit length)
+   0.438  Ek Haseena Thi Ek Deewana Tha       shared terms: haseena ek, ek deewana, ek haseena, haseena
+   0.142  Raat Kitni                          shared terms: kahaan kahaan, kahaan, beh, ek
+   0.138  Tafreeh                             shared terms: kahaan kahaan, kahaan, jee, lamha
+   0.106  Wahi Hai Raste                      shared terms: dooriyan jab, kahaan, dooriyan, jab
+   0.104  Bura Na Mano Bholi Hai              shared terms: kahaan kahaan, kahaan, jahaan, hey bole
+
+5) MOOD CLASSIFICATION (LinearSVC) — picks the class with the highest score
+   Sad 😢              score +0.88
+   Calm 🌿             score -0.88
+   Emotional 💙        score -0.89
+
+   Predicted: Sad 😢   |   Dataset label: Sad 😢
